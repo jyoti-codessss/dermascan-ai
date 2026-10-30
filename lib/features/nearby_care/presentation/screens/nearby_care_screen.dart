@@ -259,10 +259,9 @@ class _NearbyCareScreenState extends ConsumerState<NearbyCareScreen> {
                 },
               ),
               children: [
-                // Fast CartoDB Voyager tiles with OSM fallback
+                // Clean OpenStreetMap tiles without API key requirements
                 TileLayer(
-                  urlTemplate: 'https://basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png',
-                  fallbackUrl: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+                  urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
                   userAgentPackageName: 'com.dermascan.ai.dermascan_ai',
                   maxZoom: 19,
                 ),

@@ -141,9 +141,8 @@ class AuthNotifier extends StateNotifier<AuthState> {
         // Fallback to local session on error so examiner is never blocked
         final fallbackUser = User(
           id: 'usr_${DateTime.now().millisecondsSinceEpoch}',
-          name: name.trim(),
+          displayName: name.trim(),
           email: email.trim(),
-          emailVerified: true,
           createdAt: DateTime.now(),
         );
         await _persistSession(fallbackUser, 'demo_access_token_v1', 'demo_refresh_token_v1');
@@ -152,9 +151,8 @@ class AuthNotifier extends StateNotifier<AuthState> {
     } on Exception catch (_) {
       final fallbackUser = User(
         id: 'usr_${DateTime.now().millisecondsSinceEpoch}',
-        name: name.trim(),
+        displayName: name.trim(),
         email: email.trim(),
-        emailVerified: true,
         createdAt: DateTime.now(),
       );
       await _persistSession(fallbackUser, 'demo_access_token_v1', 'demo_refresh_token_v1');
@@ -190,9 +188,8 @@ class AuthNotifier extends StateNotifier<AuthState> {
         // Fallback for presentation demo
         final fallbackUser = User(
           id: 'usr_doc_demo',
-          name: email.contains('@') ? email.split('@')[0] : 'Dr. Vikas Yadav',
+          displayName: email.contains('@') ? email.split('@')[0] : 'Dr. Vikas Yadav',
           email: email.trim(),
-          emailVerified: true,
           createdAt: DateTime.now(),
         );
         await _persistSession(fallbackUser, 'demo_access_token_v1', 'demo_refresh_token_v1');
@@ -201,9 +198,8 @@ class AuthNotifier extends StateNotifier<AuthState> {
     } on Exception catch (_) {
       final fallbackUser = User(
         id: 'usr_doc_demo',
-        name: email.contains('@') ? email.split('@')[0] : 'Dr. Vikas Yadav',
+        displayName: email.contains('@') ? email.split('@')[0] : 'Dr. Vikas Yadav',
         email: email.trim(),
-        emailVerified: true,
         createdAt: DateTime.now(),
       );
       await _persistSession(fallbackUser, 'demo_access_token_v1', 'demo_refresh_token_v1');
@@ -247,10 +243,9 @@ class AuthNotifier extends StateNotifier<AuthState> {
         if (idToken == null) {
           final fallbackUser = User(
             id: 'usr_google_demo',
-            name: account.displayName ?? 'Google User',
+            displayName: account.displayName ?? 'Google User',
             email: account.email,
-            avatarUrl: account.photoUrl,
-            emailVerified: true,
+            photoUrl: account.photoUrl,
             createdAt: DateTime.now(),
           );
           await _persistSession(fallbackUser, 'demo_access_token_v1', 'demo_refresh_token_v1');
@@ -275,10 +270,9 @@ class AuthNotifier extends StateNotifier<AuthState> {
       } else {
         final fallbackUser = User(
           id: 'usr_google_demo',
-          name: 'Vikas Yadav',
+          displayName: 'Vikas Yadav',
           email: 'vikas.yadav@gmail.com',
-          avatarUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150',
-          emailVerified: true,
+          photoUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150',
           createdAt: DateTime.now(),
         );
         await _persistSession(fallbackUser, 'demo_access_token_v1', 'demo_refresh_token_v1');
@@ -292,10 +286,9 @@ class AuthNotifier extends StateNotifier<AuthState> {
         // Fallback for APK demo mode if SHA-1 is not registered in Google Cloud Console
         final demoGoogleUser = User(
           id: 'usr_google_demo',
-          name: 'Vikas Yadav (Google)',
+          displayName: 'Vikas Yadav (Google)',
           email: 'vikas.yadav@gmail.com',
-          avatarUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150',
-          emailVerified: true,
+          photoUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150',
           createdAt: DateTime.now(),
         );
         await _persistSession(demoGoogleUser, 'demo_access_token_v1', 'demo_refresh_token_v1');
@@ -304,10 +297,9 @@ class AuthNotifier extends StateNotifier<AuthState> {
     } on Exception catch (_) {
       final demoGoogleUser = User(
         id: 'usr_google_demo',
-        name: 'Vikas Yadav (Google)',
+        displayName: 'Vikas Yadav (Google)',
         email: 'vikas.yadav@gmail.com',
-        avatarUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150',
-        emailVerified: true,
+        photoUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150',
         createdAt: DateTime.now(),
       );
       await _persistSession(demoGoogleUser, 'demo_access_token_v1', 'demo_refresh_token_v1');

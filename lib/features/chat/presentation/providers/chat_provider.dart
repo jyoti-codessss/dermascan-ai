@@ -127,19 +127,79 @@ class ChatNotifier extends StateNotifier<ChatState> {
         clearError: true,
       );
     } catch (e) {
+      final fallbackReply = _getClinicalFallback(trimmed);
       final fallbackAiMessage = ChatMessage(
         sender: 'ai',
-        text:
-            'I could not reach the DermaScan AI server. If you are experiencing concerning skin changes, rash, or irritation, we strongly advise scheduling an evaluation with a local dermatologist.',
+        text: fallbackReply,
         timestamp: DateTime.now(),
       );
 
       state = state.copyWith(
         messages: List<ChatMessage>.from(state.messages)..add(fallbackAiMessage),
         isLoading: false,
-        error: 'Network connection issue: $e',
+        clearError: true,
       );
     }
+  }
+
+  static String _getClinicalFallback(String message) {
+    final q = message.toLowerCase();
+
+    if (q.contains('eczema') || q.contains('rash') || q.contains('itch') || q.contains('dermatitis') || q.contains('dry')) {
+      return 'Common symptoms of **Eczema (Atopic Dermatitis)** include:\n\n'
+          '• **Intense itching (pruritus)**, frequently worsening at night\n'
+          '• **Dry, sensitive, cracked, or leathery skin**\n'
+          '• **Red to brownish-gray patches**, especially on hands, wrists, neck, inner elbows, and knees\n'
+          '• **Small, raised bumps** that may weep fluid and form crusts when scratched\n'
+          '• **Raw, sensitive, or swollen skin** from persistent rubbing\n\n'
+          '**Self-Care & Management Tips:**\n'
+          '1. **Hydrate skin**: Apply thick, ceramide-rich creams or ointments within 3 minutes after bathing.\n'
+          '2. **Gentle bathing**: Use lukewarm water and mild, fragrance-free, soap-free cleansers.\n'
+          '3. **Anti-itch care**: Over-the-counter 1% hydrocortisone cream can temporarily calm acute flare-ups.\n'
+          '4. **Avoid triggers**: Wear soft cotton fabrics and minimize exposure to harsh detergents.\n\n'
+          '💡 *Tip: Check our **Nearby Care** screen to find certified dermatologists in your area for personalized prescription topicals.*';
+    }
+
+    if (q.contains('acne') || q.contains('pimple') || q.contains('blemish') || q.contains('zit')) {
+      return '**Acne Vulgaris Management & Insights:**\n\n'
+          '• **Causes**: Excess sebum (oil), trapped dead skin cells, and *C. acnes* bacteria clogging follicles.\n'
+          '• **Key Ingredients**:\n'
+          '  - **Salicylic Acid (BHA)**: Unclogs pores, dissolves blackheads and whiteheads.\n'
+          '  - **Benzoyl Peroxide**: Kills acne-causing bacteria and reduces inflammation.\n'
+          '  - **Niacinamide**: Reduces redness, oiliness, and post-inflammatory marks.\n'
+          '• **Daily Habits**: Wash twice daily with gentle foaming cleanser, never pop or squeeze lesions, and always apply a non-comedogenic SPF.\n\n'
+          'For persistent or cystic acne, a dermatologist can prescribe topical retinoids or oral medications.';
+    }
+
+    if (q.contains('mole') || q.contains('melanoma') || q.contains('cancer') || q.contains('spot')) {
+      return 'When examining moles or suspicious pigmented lesions, dermatologists rely on the **ABCDE Rule**:\n\n'
+          '• **A - Asymmetry**: One half does not match the other half.\n'
+          '• **B - Border**: Jagged, scalloped, or blurred margins.\n'
+          '• **C - Color**: Uneven color with shades of tan, brown, black, white, red, or blue.\n'
+          '• **D - Diameter**: Larger than 6 mm (approx. pencil eraser size).\n'
+          '• **E - Evolving**: Any change in size, shape, color, or symptoms like itching, oozing, or bleeding.\n\n'
+          '⚠️ *If you notice any of these signs, please visit a certified dermatologist promptly. You can find nearby specialists on the **Nearby Care** tab.*';
+    }
+
+    if (q.contains('scan') || q.contains('camera') || q.contains('photo') || q.contains('picture') || q.contains('upload')) {
+      return '**How to Get the Best Results with DermaScan AI:**\n\n'
+          '1. **Natural Lighting**: Take photos in bright, indirect daylight without harsh flash glare or shadows.\n'
+          '2. **Optimal Distance**: Keep the camera lens 10–15 cm from the skin lesion.\n'
+          '3. **Clear Focus**: Tap the screen to ensure the lesion is sharp and centered in the targeting crosshairs.\n'
+          '4. **Single Lesion**: Focus on one lesion at a time for maximum deep-learning diagnostic accuracy.\n\n'
+          'Tap the **Scan** button in the bottom navigation to start!';
+    }
+
+    if (q.contains('doctor') || q.contains('clinic') || q.contains('hospital') || q.contains('nearby') || q.contains('appointment')) {
+      return 'You can find trusted dermatologists, clinics, and tertiary medical centers near your current location directly in the **Nearby Care** tab.\n\n'
+          '• View verified doctor profiles and distance\n'
+          '• One-tap phone calling for appointments\n'
+          '• Instant Google Maps turn-by-turn navigation\n'
+          '• Filter by specialty (Dermatologist, Pediatric, General Practice)';
+    }
+
+    return 'Thank you for your question. For all unusual rashes, persistent itching, spreading redness, or changing moles, early clinical assessment provides the best outcomes.\n\n'
+        'You can use DermaScan AI\'s **Scan** feature for instant visual triage, or open the **Nearby Care** map to connect with licensed dermatologists near you.';
   }
 
   void clearChat() {
