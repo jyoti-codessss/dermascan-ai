@@ -16,7 +16,7 @@ const pool = new Pool({
 
 let isPostgresConnected = false;
 
-pool.on('error', (err) => {
+pool.on('error', (err: Error) => {
   logger.warn('[PostgreSQL] Unexpected pool client error:', err.message);
   isPostgresConnected = false;
 });

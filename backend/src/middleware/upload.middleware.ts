@@ -14,7 +14,7 @@ const upload = multer({
     fileSize: env.uploadMaxSizeBytes, // 25MB
     files: 1,
   },
-  fileFilter: (_req, file, cb) => {
+  fileFilter: (_req: any, file: any, cb: any) => {
     if (allowedMimeTypes.includes(file.mimetype.toLowerCase())) {
       cb(null, true);
     } else {
@@ -33,10 +33,11 @@ export const handleImageUpload = (
   res: Response,
   next: NextFunction
 ): void => {
-  upload(req, res, (err: unknown) => {
+  upload(req, res, (err: any) => {
     if (err) {
-      if (err instanceof multer.MulterError) {
-        if (err.code === 'LIMIT_FILE_SIZE') {
+      if (err instanceof multer.MulterError || (err && typeof err === 'object' && 'code' in err)) {
+        const errorObj = err as any;
+        if (errorObj.code === 'LIMIT_FILE_SIZE') {
           return next(
             AppError.badRequest(
               `Uploaded image exceeds the 25MB size limit.`,
@@ -44,7 +45,7 @@ export const handleImageUpload = (
             )
           );
         }
-        return next(AppError.badRequest(err.message, 'UPLOAD_ERROR'));
+        return next(AppError.badRequest(errorObj.message || 'Upload failed', 'UPLOAD_ERROR'));
       }
       return next(err);
     }
