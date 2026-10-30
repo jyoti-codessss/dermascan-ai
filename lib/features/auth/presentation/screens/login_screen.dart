@@ -24,8 +24,8 @@ class LoginScreen extends ConsumerStatefulWidget {
 
 class _LoginScreenState extends ConsumerState<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
+  final _emailController = TextEditingController(text: 'doctor@clinic.com');
+  final _passwordController = TextEditingController(text: 'Password123!');
 
   @override
   void dispose() {
@@ -328,15 +328,15 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                         ),
                                       ),
                                       onPressed: () {
-                                        ref.read(authNotifierProvider.notifier).login('user@apple.com', 'Pass123!');
+                                        ref.read(authNotifierProvider.notifier).login('doctor@clinic.com', 'Password123!');
                                       },
                                       child: Row(
                                         mainAxisAlignment: MainAxisAlignment.center,
                                         children: [
-                                          const Icon(Icons.apple, color: Color(0xFFE0E2ED), size: 20),
+                                          const Icon(Icons.flash_on_rounded, color: Color(0xFFADC6FF), size: 18),
                                           const SizedBox(width: 6),
                                           Text(
-                                            'Apple',
+                                            'Quick Demo',
                                             style: AppTypography.bodyMediumSemibold.copyWith(
                                               color: const Color(0xFFE0E2ED),
                                             ),
