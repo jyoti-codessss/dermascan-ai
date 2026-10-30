@@ -1,0 +1,96 @@
+# Miscellaneous
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+.atom/
+.build/
+.buildlog/
+.history
+.svn/
+.swiftpm/
+migrate_working_dir/
+
+# IntelliJ related
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# The .vscode folder contains launch configuration and tasks you configure in
+# VS Code which you may wish to be included in version control, so this line
+# is commented out by default.
+#.vscode/
+
+# Flutter/Dart/Pub related
+**/doc/api/
+**/ios/Flutter/.last_build_id
+.dart_tool/
+**/.dart_tool/
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+build/
+**/build/
+coverage/
+**/coverage/
+.gradle/
+**/.gradle/
+.idea/
+**/.idea/
+*.iml
+backend/node_modules/
+backend/dist/
+
+# Symbolication related
+app.*.symbols
+
+# Obfuscation related
+app.*.map.json
+
+# Android Studio will place build artifacts here
+/android/app/debug
+/android/app/profile
+/android/app/release
+
+# Backend environment files — NEVER commit secrets
+backend/.env
+backend/.env.local
+backend/.env.production
+backend/.env.staging
+.env
+.env.local
+.env.production
+.env.staging
+
+# ─── ML Dataset & Model Artifacts — NEVER commit to Git ───────────────────────
+# Raw HAM10000 images and ZIP archives
+ml/dataset/raw/
+*.zip
+
+# Trained model weights and checkpoints
+*.h5
+*.pt
+*.pth
+*.onnx
+*.tflite
+*.pkl
+*.joblib
+*.ckpt
+ml/models/*.bin
+ml/models/checkpoints/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+
+# Virtual environments
+venv/
+.venv/
+ml/.venv/
+
+# Jupyter notebooks output
+*.ipynb_checkpoints

@@ -1,0 +1,60 @@
+{
+  "name": "dermascan-ai-backend",
+  "version": "1.0.0",
+  "description": "Production REST API Backend for DermaScan AI",
+  "mongodbMemoryServer": {
+    "version": "6.0.12",
+    "md5Check": false
+  },
+  "main": "dist/server.js",
+  "scripts": {
+    "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "test": "jest --runInBand --detectOpenHandles --forceExit",
+    "test:watch": "jest --watch",
+    "lint": "tsc --noEmit"
+  },
+  "keywords": [
+    "dermascan",
+    "express",
+    "typescript",
+    "mongodb",
+    "jwt",
+    "authentication"
+  ],
+  "author": "DermaScan AI Team",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "@google/genai": "^2.24.0",
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.6",
+    "dotenv": "^17.3.1",
+    "express": "^4.21.2",
+    "express-rate-limit": "^7.5.0",
+    "google-auth-library": "^11.0.2",
+    "helmet": "^8.1.0",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^8.14.0",
+    "multer": "^2.2.0",
+    "pg": "^8.23.0",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "@types/jest": "^29.5.14",
+    "@types/jsonwebtoken": "^9.0.9",
+    "@types/multer": "^2.2.0",
+    "@types/node": "^22.13.10",
+    "@types/pg": "^8.23.1",
+    "@types/supertest": "^6.0.2",
+    "jest": "^29.7.0",
+    "mongodb-memory-server": "^10.1.4",
+    "supertest": "^7.0.0",
+    "ts-jest": "^29.2.6",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.8.2"
+  }
+}
