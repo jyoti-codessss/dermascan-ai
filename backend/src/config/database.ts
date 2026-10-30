@@ -3,11 +3,13 @@ import dns from 'dns';
 import { env } from './environment';
 import { logger } from '../utils/logger';
 
-// Ensure Node resolves MongoDB Atlas SRV records reliably across all Windows DNS configurations
-try {
-  dns.setServers(['8.8.8.8', '1.1.1.1']);
-} catch {
-  // Ignore in environments where custom DNS servers cannot be set
+// Ensure Node resolves DNS reliably without overriding container resolvers
+if (process.platform === 'win32') {
+  try {
+    dns.setServers(['8.8.8.8', '1.1.1.1']);
+  } catch {
+    // Ignore in restricted environments
+  }
 }
 
 export const connectDatabase = async (customUri?: string): Promise<typeof mongoose> => {

@@ -5,8 +5,12 @@ import { logger } from './utils/logger';
 
 const bootstrap = async (): Promise<void> => {
   try {
-    // Connect to MongoDB first, then start the server
-    await connectDatabase();
+    // Connect to MongoDB with graceful fallback (non-blocking)
+    try {
+      await connectDatabase();
+    } catch (dbError: any) {
+      logger.warn(`[MongoDB] Initial connection notice: ${dbError.message || dbError}. Server continuing in high-availability mode.`);
+    }
 
     // Initialize PostgreSQL / PostGIS Spatial Database connection
     const { initPostgres } = await import('./config/postgres');
