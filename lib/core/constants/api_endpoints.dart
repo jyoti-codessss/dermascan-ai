@@ -11,7 +11,7 @@ class ApiEndpoints {
   /// Change this to your machine's local IP when testing on a physical device.
   /// Example: 'http://192.168.1.10:5001'
   static const String baseUrl =
-      String.fromEnvironment('API_BASE_URL', defaultValue: 'http://127.0.0.1:5001');
+      String.fromEnvironment('API_BASE_URL', defaultValue: 'https://dermascan-ai-plfk.onrender.com');
 
   static const String apiV1 = '$baseUrl/api/v1';
 
